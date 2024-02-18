@@ -1,19 +1,20 @@
 import mongoose, {Schema} from "mongoose";
 
-mongoose.connect(process.env.MONGODB_URI || '');
-mongoose.Promise = global.Promise;
 
 
 const topicSchema = new Schema({
     nameOfCustomer: String,
     nameOfCompany: String,
     nameOfProduct: String,
+    contacts: String,
     isProjectExist: Boolean,
     isMoreOneLanguage: Boolean,
     isNeedSEO: Boolean,
     isNeedSupport: Boolean,
     isYouHaveDesign: Boolean,
     isYouHaveBrand: Boolean,
+    isCommerceProject: Boolean,
+    Activity: String,
     typeOfProject: String,
     competitorInfo: {},
     auditoryInfo: {},
