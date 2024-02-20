@@ -1,6 +1,6 @@
 import mongoose, {Schema} from "mongoose";
 
-
+mongoose.connect(process.env.MONGODB_URI);
 
 const topicSchema = new Schema({
     nameOfCustomer: String,
@@ -16,8 +16,10 @@ const topicSchema = new Schema({
     isCommerceProject: Boolean,
     Activity: String,
     typeOfProject: String,
-    competitorInfo: {},
-    auditoryInfo: {},
+    link: String,
+    like: String,
+    dislike: String,
+    auditoryInfo: String,
     typeOfDesign: String,
     dayOfStart: String,
     deadLine: String,

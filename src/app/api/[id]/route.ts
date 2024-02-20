@@ -9,16 +9,16 @@ export async function GET(request: any, { params }: any) {
 
 export async function PUT(req: any, { params }: any) {
     try {
+        console.log('2222')
         const { id } = params;
-
+        console.log(id)
         const body = await req.json();
-        const brifData = body.formData;
-
+        console.log(body);
         const updateBrif = await Topic.findByIdAndUpdate(id, {
-            ...brifData,
+            ...body,
         });
 
-        return NextResponse.json({ message: "Brif updated" }, { status: 200 });
+        return NextResponse.json({ message: updateBrif }, { status: 200 });
     } catch (error) {
         console.log(error);
         return NextResponse.json({ message: "Error", error }, { status: 500 });

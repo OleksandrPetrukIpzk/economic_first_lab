@@ -1,13 +1,37 @@
 'use client'
-import {Input, Radio, Select, Option, Checkbox} from "@mui/joy";
+import {Input, Radio, Select, Option, Checkbox, Button} from "@mui/joy";
 import {useState} from "react";
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import EmailIcon from '@mui/icons-material/Email';
 // @ts-ignore
 import DatePicker from "react-datepicker";
-
 import "react-datepicker/dist/react-datepicker.css";
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import {SubmitHandler, useForm} from "react-hook-form";
+import axios from "axios";
+export type Inputs = {
+    nameOfCustomer: string,
+    nameOfCompany: string,
+    nameOfProduct: string,
+    contacts: string,
+    isProjectExist: boolean,
+    isMoreOneLanguage: boolean,
+    isNeedSEO: boolean,
+    isNeedSupport: boolean,
+    isYouHaveDesign: boolean,
+    isYouHaveBrand: boolean,
+    isCommerceProject: boolean,
+    Activity: string,
+    typeOfProject: string,
+    link: string,
+    like: string[],
+    dislike: string[],
+    auditoryInfo: string[],
+    typeOfDesign: string,
+    dayOfStart: string,
+    deadLine:  string,
+    sumOfMoney: string,
+}
 export default function FormPage (){
 
     const [isEmail, setIsEmail] = useState(false);
@@ -21,25 +45,45 @@ export default function FormPage (){
     const [isConcurent, setIsConcurent] = useState(false);
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    return(<main>
-        <form>
+    const {register, handleSubmit} = useForm<Inputs>();
+    const onSubmit: SubmitHandler<Inputs> = async (data) => {
+        const dataFromSchem = {
+            nameOfCustomer: data.nameOfCustomer,
+            nameOfCompany: data.nameOfCompany,
+            nameOfProduct: data.nameOfProduct,
+            contacts: data.contacts,
+            isProjectExist: isProjectExist,
+            isMoreOneLanguage: isProjectHaveMoreLanguages,
+            isNeedSEO: isNeedSEO,
+            isNeedSupport: isNeedSupport,
+            isYouHaveDesign: isNeedDesign,
+            isYouHaveBrand: isNeedBrand,
+            isCommerceProject: isCommerceProject,
+            Activity: data.Activity,
+            typeOfProject: data.typeOfProject,
+            link: isConcurent && data.link ? data.link : 'Не надано інформації',
+            like: isConcurent && data.like.length > 0 ? data.like.join(', ') : 'Не надано інформації',
+            dislike: isConcurent && data.dislike.length > 0 ? data.dislike.join(', ') : 'Не надано інформації',
+            auditoryInfo: data.auditoryInfo.join(', '),
+            typeOfDesign: data.typeOfDesign,
+            dayOfStart: startDate.toString(),
+            deadLine:  endDate.toString(),
+            sumOfMoney: data.sumOfMoney,
+            isEdit: false
+        }
+        const res = await axios.post('http://localhost:3000/api/', dataFromSchem);
+        console.log(res)
+    }
+
+    return<main>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <p>Як до вас можна звертатися?</p>
             <Input
+                {...register("nameOfCustomer", {required: true})}
                 color="primary"
                 size="lg"
                 variant="outlined"
-            />
-            <p>Яка назва вашої компанії?</p>
-            <Input
-                color="primary"
-                size="lg"
-                variant="outlined"
-            />
-            <p>Яка назва вашого продукту?</p>
-            <Input
-                color="primary"
-                size="lg"
-                variant="outlined"
+                placeholder='Олександр'
             />
             {/* eslint-disable-next-line react/no-unescaped-entities */}
             <p>Як ми можемо з вами зв'язатися?</p>
@@ -61,17 +105,37 @@ export default function FormPage (){
             />
             {
                 isEmail ? <Input
+                    {...register("contacts")}
+                    placeholder="user@mail.com"
                     color="primary"
                     size="lg"
                     variant="outlined"
                     startDecorator={<EmailIcon/>}
                 /> : <Input
+                    {...register("contacts")}
+                    placeholder="+380235492542"
                     color="primary"
                     size="lg"
                     variant="outlined"
                     startDecorator={<SmartphoneIcon/>}
                 />
             }
+            <p>Яка назва вашої компанії?</p>
+            <Input
+                {...register("nameOfCompany", {required: true})}
+                placeholder="Name of company"
+                color="primary"
+                size="lg"
+                variant="outlined"
+            />
+            <p>Яка назва вашого продукту?</p>
+            <Input
+                {...register("nameOfProduct", {required: true})}
+                placeholder="Product"
+                color="primary"
+                size="lg"
+                variant="outlined"
+            />
             <p>Проєкт вже існує?</p>
             <Radio
                 checked={isProjectExist}
@@ -193,6 +257,7 @@ export default function FormPage (){
             />
             <p>Якою сферою діяльності ви займаєтесь?</p>
             <Select
+                {...register('Activity', {required: true})}
                 color="primary"
                 placeholder="Оберіть одне"
                 size="lg"
@@ -211,6 +276,7 @@ export default function FormPage (){
                 placeholder="Оберіть одне"
                 size="lg"
                 variant="outlined"
+                {...register('typeOfProject', {required: true})}
             >
                 <Option value="Сайт візитка">Сайт візитка</Option>
                 <Option value="Корпоративний сайт">Корпоративний сайт</Option>
@@ -243,6 +309,7 @@ export default function FormPage (){
                         color="primary"
                         size="lg"
                         variant="outlined"
+                        {...register('link')}
                     />
                     <p>Що вам подобається на сайті?</p>
                     <Checkbox
@@ -250,91 +317,144 @@ export default function FormPage (){
                         label="Якість"
                         size="lg"
                         variant="outlined"
+                        value="Якість"
+                        {...register('like')}
                     />
                     <Checkbox
                         color="primary"
                         label="Дизайн"
                         size="lg"
                         variant="outlined"
+                        value="Дизайн"
+                        {...register('like')}
                     />
                     <Checkbox
                         color="primary"
                         label="Популярність"
                         size="lg"
                         variant="outlined"
+                        value="Популярність"
+                        {...register('like')}
                     />
                     <Checkbox
                         color="primary"
                         label="Швидкодія"
                         size="lg"
                         variant="outlined"
+                        value="Швидкодія"
+                        {...register('like')}
                     />
                     <Checkbox
                         color="primary"
                         label="Красиві анімації"
                         size="lg"
                         variant="outlined"
+                        value="Красиві анімації"
+                        {...register('like')}
+                    />
+                    <Checkbox
+                        color="primary"
+                        label="Інше"
+                        size="lg"
+                        variant="outlined"
+                        value="Інше"
+                        {...register('like')}
                     />
                     <p>Що вам не подобається на сайті?</p>
                     <Checkbox
+                        {...register('dislike')}
+                        value='Погана якість'
                         color="primary"
                         label="Погана якість"
                         size="lg"
                         variant="outlined"
                     />
                     <Checkbox
+                        {...register('dislike')}
+                        value='Застарілий дизайн'
                         color="primary"
                         label="Застарілий дизайн"
                         size="lg"
                         variant="outlined"
                     />
                     <Checkbox
+                        {...register('dislike')}
+                        value='Не трапляється в пошуковій системі'
+                        color="primary"
+                        label="Не трапляється в пошуковій системі"
+                        size="lg"
+                        variant="outlined"
+                    />
+                    <Checkbox
+                        {...register('dislike')}
+                        value='Низька швидкодія'
                         color="primary"
                         label="Низька швидкодія"
                         size="lg"
                         variant="outlined"
                     />
+                    <Checkbox
+                        {...register('dislike')}
+                        value='Інше'
+                    color="primary"
+                    label="Інше"
+                    size="lg"
+                    variant="outlined"
+                />
                 </>
             }
-            <p>Який цільовий вік вашої аудиторії?</p>
+            <p>Який вік вашої цільової аудиторії?</p>
             <Checkbox
+                {...register('auditoryInfo')}
+                value="10-13"
                 color="primary"
                 label="10-13"
                 size="lg"
                 variant="outlined"
             />
             <Checkbox
+                {...register('auditoryInfo')}
                 color="primary"
                 label="13-17"
+                value="13-17"
                 size="lg"
                 variant="outlined"
             />
             <Checkbox
+                {...register('auditoryInfo')}
                 color="primary"
+                value="17-21"
                 label="17-21"
                 size="lg"
                 variant="outlined"
             />
             <Checkbox
+                {...register('auditoryInfo')}
                 color="primary"
                 label="21-30"
+                value="21-30"
                 size="lg"
                 variant="outlined"
             />
             <Checkbox
+                {...register('auditoryInfo')}
                 color="primary"
                 label="30-40"
+                value="30-40"
                 size="lg"
                 variant="outlined"
             />
             <Checkbox
+                {...register('auditoryInfo')}
                 color="primary"
                 label="40+"
+                value="40+"
                 size="lg"
                 variant="outlined"
             />
             <p>Який тип дизайну ви хочете?</p>
             <Select
+                {...register('typeOfDesign', {required: true})}
                 color="primary"
                 placeholder="Оберіть одне"
                 size="lg"
@@ -348,17 +468,19 @@ export default function FormPage (){
                 <Option value={'Інше'}>Інше</Option>
             </Select>
             <p>Дата початку роботи</p>
-            <DatePicker selected={startDate} onChange={(date) => setStartDate(date)}/>
+            <DatePicker  selected={startDate} onChange={(date) => setStartDate(date)}/>
             <p>Дата кінця роботи</p>
             <DatePicker selected={endDate} onChange={(date) => setEndDate(date)}/>
             <p>Очікувана сума затрат на проєкт</p>
             <Input
+                {...register('sumOfMoney', {required: true})}
                 color="primary"
                 size="lg"
                 variant="outlined"
                 startDecorator={<AttachMoneyIcon/>}
             />
+            <Button type={"submit"}>Відправити результат</Button>
         </form>
-    </main>)
+    </main>
 
 }
