@@ -81,12 +81,13 @@ export default function Admin() {
         <div>
             {brifs.map((brif) => {
                 return (
-                    <div key={brif._id}>
-                        <Link href={'admin/'+ brif._id}>
+                    <div key={brif._id} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 20, marginLeft: 30 , marginRight: 30 , marginTop: 30, border: '1px solid green'}}>
+                        <Link href={'admin/'+ brif._id} style={{display: 'flex', flexDirection: 'column', gap: 10}}>
                             <p>Name: {brif.nameOfCustomer}</p>
                             <p>Date of start: {brif.dayOfStart}</p>
                             <p>Salary: {brif.sumOfMoney}</p>
                         </Link>
+                        <div style={{display: 'flex', gap: 5}}>
                             <Button
                                 color="danger"
                                 onClick={() => deleteElement(brif._id)}
@@ -102,7 +103,7 @@ export default function Admin() {
                             <Button color="warning" size="lg" onClick={() => createPDF(brif._id)}>
                                 Download PDF
                             </Button>
-
+                        </div>
                     </div>
                 );
             })}
