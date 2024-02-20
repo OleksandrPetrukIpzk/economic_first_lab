@@ -113,8 +113,8 @@ export default function ChangeForm({params: {id}}: Props) {
       await axios.put('http://localhost:3000/api/' + id, sendValue);
     }
     return (<>
-        <div>
-                <p>Як до вас можна звертатися?</p>
+        <div style={{display:'flex', flexDirection: 'column',alignItems: 'center', justifyContent: 'center'}}>
+                <p style={{marginBottom: 20, marginTop: 50}}>Як до вас можна звертатися?</p>
                 <Input
                     onChange={(e) => handleChange('nameOfCustomer', e.target.value)}
                     value={brif?.nameOfCustomer}
@@ -124,7 +124,7 @@ export default function ChangeForm({params: {id}}: Props) {
                     placeholder='Олександр'
                 />
                 {/* eslint-disable-next-line react/no-unescaped-entities */}
-                <p>Як ми можемо з вами зв'язатися?</p>
+                <p style={{marginBottom: 20, marginTop: 20}}>Як ми можемо з вами зв'язатися?</p>
                  <Input
                      onChange={(e) => handleChange('contacts', e.target.value)}
                      value={brif?.contacts}
@@ -132,7 +132,7 @@ export default function ChangeForm({params: {id}}: Props) {
                         size="lg"
                         variant="outlined"
                     />
-                <p>Яка назва вашої компанії?</p>
+                <p style={{marginBottom: 20, marginTop: 20}}>Яка назва вашої компанії?</p>
                 <Input
                     onChange={(e) => handleChange('nameOfCompany', e.target.value)}
                     value={brif?.nameOfCompany}
@@ -141,7 +141,7 @@ export default function ChangeForm({params: {id}}: Props) {
                     size="lg"
                     variant="outlined"
                 />
-                <p>Яка назва вашого продукту?</p>
+                <p style={{marginBottom: 20, marginTop: 20}}>Яка назва вашого продукту?</p>
                 <Input
                     onChange={(e) => handleChange('nameOfProduct', e.target.value)}
                     value={brif?.nameOfProduct}
@@ -150,7 +150,8 @@ export default function ChangeForm({params: {id}}: Props) {
                     size="lg"
                     variant="outlined"
                 />
-                <p>Проєкт вже існує?</p>
+                <p style={{marginBottom: 20, marginTop: 20}}>Проєкт вже існує?</p>
+            <div>
                 <Radio
                     checked={brif?.isProjectExist}
                     onChange={(e) => handleChange('isProjectExist', true)}
@@ -167,7 +168,9 @@ export default function ChangeForm({params: {id}}: Props) {
                     slotProps={{input: {'aria-label': 'A'}}}
                     label="Ні"
                 />
-                <p>Проєкт має більше однієї мови?</p>
+            </div>
+                <p style={{marginBottom: 20, marginTop: 20}}>Проєкт має більше однієї мови?</p>
+            <div>
                 <Radio
                     checked={brif?.isMoreOneLanguage}
                     onChange={(e) => handleChange('isMoreOneLanguage', true)}
@@ -184,7 +187,9 @@ export default function ChangeForm({params: {id}}: Props) {
                     slotProps={{input: {'aria-label': 'A'}}}
                     label="Ні"
                 />
-                <p>Чи потрібно вам SEO оптимізація?</p>
+            </div>
+                <p style={{marginBottom: 20, marginTop: 20}}>Чи потрібно вам SEO оптимізація?</p>
+            <div>
                 <Radio
                     checked={brif?.isNeedSEO}
                     onChange={(e) => handleChange('isNeedSEO', true)}
@@ -201,7 +206,9 @@ export default function ChangeForm({params: {id}}: Props) {
                     slotProps={{input: {'aria-label': 'A'}}}
                     label="Ні"
                 />
-                <p>Чи потрібна вам підримка проєкту?</p>
+            </div>
+                <p style={{marginBottom: 20, marginTop: 20}}>Чи потрібна вам підримка проєкту?</p>
+            <div>
                 <Radio
                     checked={brif?.isNeedSupport}
                     onChange={(e) => handleChange('isNeedSupport', true)}
@@ -218,7 +225,9 @@ export default function ChangeForm({params: {id}}: Props) {
                     slotProps={{input: {'aria-label': 'A'}}}
                     label="Ні"
                 />
-                <p>Чи потрібен вам дизайн?</p>
+            </div>
+                <p style={{marginBottom: 20, marginTop: 20}}>Чи потрібен вам дизайн?</p>
+            <div>
                 <Radio
                     checked={brif?.isYouHaveDesign}
                     onChange={(e) => handleChange('isYouHaveDesign', true)}
@@ -235,7 +244,9 @@ export default function ChangeForm({params: {id}}: Props) {
                     slotProps={{input: {'aria-label': 'A'}}}
                     label="Ні"
                 />
-                <p>Чи у вас є бренд проєкту?</p>
+            </div>
+                <p style={{marginBottom: 20, marginTop: 20}}>Чи у вас є бренд проєкту?</p>
+            <div>
                 <Radio
                     checked={brif?.isYouHaveBrand}
                     onChange={(e) => handleChange('isYouHaveBrand', true)}
@@ -252,7 +263,9 @@ export default function ChangeForm({params: {id}}: Props) {
                     slotProps={{input: {'aria-label': 'A'}}}
                     label="Ні"
                 />
-                <p>Це комерційний проєкт?</p>
+            </div>
+                <p style={{marginBottom: 20, marginTop: 20}}>Це комерційний проєкт?</p>
+            <div>
                 <Radio
                     checked={brif?.isCommerceProject}
                     onChange={(e) => handleChange('isCommerceProject', true)}
@@ -269,7 +282,8 @@ export default function ChangeForm({params: {id}}: Props) {
                     slotProps={{input: {'aria-label': 'A'}}}
                     label="Ні"
                 />
-                <p>Якою сферою діяльності ви займаєтесь?</p>
+            </div>
+                <p style={{marginBottom: 20, marginTop: 20}}>Якою сферою діяльності ви займаєтесь?</p>
                 <Select
                     onChange={(e) => e && handleChange('Activity', e.target.innerHTML)}
                     value={brif?.Activity}
@@ -285,7 +299,7 @@ export default function ChangeForm({params: {id}}: Props) {
                     <Option value={'Некомерційна організація'}>Некомерційна організація</Option>
                     <Option value={'Інше'}>Інше</Option>
                 </Select>
-                <p>Який тип проєкту у вас?</p>
+                <p style={{marginBottom: 20, marginTop: 20}}>Який тип проєкту у вас?</p>
                 <Select
                     onChange={(e) => e && handleChange('typeOfProject', e.target.innerHTML)}
                     color="primary"
@@ -301,7 +315,7 @@ export default function ChangeForm({params: {id}}: Props) {
                     <Option value={"Маркетплейс"}>Маркетплейс</Option>
                     <Option value={"Інше"}>Інше</Option>
                 </Select>
-                        <p>Посилання на сайт конкурентів?</p>
+                        <p style={{marginBottom: 20, marginTop: 20}}>Посилання на сайт конкурентів?</p>
                         <Input
                             onChange={(e) => handleChange('link', e.target.value)}
                             color="primary"
@@ -309,7 +323,8 @@ export default function ChangeForm({params: {id}}: Props) {
                             variant="outlined"
                             value={brif?.link}
                         />
-                        <p>Що вам подобається на сайті?</p>
+                        <p style={{marginBottom: 20, marginTop: 20}}>Що вам подобається на сайті?</p>
+            <div>
             {likeValues.map(item =>{
                 const arr = brif.like.split(", ");
                return <Checkbox
@@ -323,7 +338,9 @@ export default function ChangeForm({params: {id}}: Props) {
                    checked={arr.includes(item)}
                 />
             })}
-                        <p>Що вам не подобається на сайті?</p>
+            </div>
+                        <p style={{marginBottom: 20, marginTop: 20}}>Що вам не подобається на сайті?</p>
+            <div>
             {unlikeValues.map(item =>{
                 const arr = brif.dislike.split(", ");
               return  <Checkbox
@@ -337,7 +354,9 @@ export default function ChangeForm({params: {id}}: Props) {
                   checked={arr.includes(item)}
                 />
             })}
-                <p>Який вік вашої цільової аудиторії?</p>
+            </div>
+                <p style={{marginBottom: 20, marginTop: 20}}>Який вік вашої цільової аудиторії?</p>
+            <div>
             {auditoryYears.map(item =>{
                 const arr = brif.auditoryInfo.split(", ");
                return <Checkbox
@@ -351,7 +370,8 @@ export default function ChangeForm({params: {id}}: Props) {
                     checked={arr.includes(item)}
                 />
             })}
-                <p>Який тип дизайну ви хочете?</p>
+            </div>
+                <p style={{marginBottom: 20, marginTop: 20}}>Який тип дизайну ви хочете?</p>
                 <Select
                     onChange={(e) => e && handleChange('typeOfDesign', e.target.innerHTML)}
                     value={brif?.typeOfDesign}
@@ -367,11 +387,11 @@ export default function ChangeForm({params: {id}}: Props) {
                     <Option value={'Ілюстративний'}>Ілюстративний</Option>
                     <Option value={'Інше'}>Інше</Option>
                 </Select>
-                <p>Дата початку роботи</p>
+                <p style={{marginBottom: 20, marginTop: 20}}>Дата початку роботи</p>
                 <DatePicker selected={startDate} onChange={(e) => handleChange('dayOfStart', e)}/>
-                <p>Дата кінця роботи</p>
+                <p style={{marginBottom: 20, marginTop: 20}}>Дата кінця роботи</p>
                 <DatePicker selected={endDate} onChange={(e) => handleChange('deadLine', e)}/>
-                <p>Очікувана сума затрат на проєкт</p>
+                <p style={{marginBottom: 20, marginTop: 20}}>Очікувана сума затрат на проєкт</p>
                 <Input
                     onChange={(e) => handleChange('sumOfMoney', e.target.value)}
                     value={brif?.sumOfMoney}
