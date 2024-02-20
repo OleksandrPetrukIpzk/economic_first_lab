@@ -76,8 +76,8 @@ export default function FormPage (){
     }
 
     return<main>
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <p>Як до вас можна звертатися?</p>
+        <form onSubmit={handleSubmit(onSubmit)} style={{display:'flex', flexDirection: 'column',alignItems: 'center', justifyContent: 'center'}}>
+            <p style={{marginBottom: 20, marginTop: 50}}>Як до вас можна звертатися?</p>
             <Input
                 {...register("nameOfCustomer", {required: true})}
                 color="primary"
@@ -86,7 +86,8 @@ export default function FormPage (){
                 placeholder='Олександр'
             />
             {/* eslint-disable-next-line react/no-unescaped-entities */}
-            <p>Як ми можемо з вами зв'язатися?</p>
+            <p style={{marginBottom: 20, marginTop: 20}}>Як ми можемо з вами зв'язатися?</p>
+            <div style={{marginBottom: 20}}>
             <Radio
                 checked={!isEmail}
                 onChange={() => setIsEmail(false)}
@@ -103,6 +104,7 @@ export default function FormPage (){
                 slotProps={{input: {'aria-label': 'A'}}}
                 label="Електрона пошта"
             />
+            </div>
             {
                 isEmail ? <Input
                     {...register("contacts")}
@@ -120,7 +122,7 @@ export default function FormPage (){
                     startDecorator={<SmartphoneIcon/>}
                 />
             }
-            <p>Яка назва вашої компанії?</p>
+            <p style={{marginBottom: 20, marginTop: 20}}>Яка назва вашої компанії?</p>
             <Input
                 {...register("nameOfCompany", {required: true})}
                 placeholder="Name of company"
@@ -128,7 +130,7 @@ export default function FormPage (){
                 size="lg"
                 variant="outlined"
             />
-            <p>Яка назва вашого продукту?</p>
+            <p style={{marginBottom: 20, marginTop: 20}}>Яка назва вашого продукту?</p>
             <Input
                 {...register("nameOfProduct", {required: true})}
                 placeholder="Product"
@@ -136,7 +138,8 @@ export default function FormPage (){
                 size="lg"
                 variant="outlined"
             />
-            <p>Проєкт вже існує?</p>
+            <p style={{marginBottom: 20, marginTop: 20}}>Проєкт вже існує?</p>
+            <div>
             <Radio
                 checked={isProjectExist}
                 onChange={() => setIsProjectExist(true)}
@@ -153,7 +156,9 @@ export default function FormPage (){
                 slotProps={{input: {'aria-label': 'A'}}}
                 label="Ні"
             />
-            <p>Проєкт має більше однієї мови?</p>
+            </div>
+            <p style={{marginBottom: 20, marginTop: 20}}>Проєкт має більше однієї мови?</p>
+            <div>
             <Radio
                 checked={isProjectHaveMoreLanguages}
                 onChange={() => setIsProjectHaveMoreLanguages(true)}
@@ -170,7 +175,9 @@ export default function FormPage (){
                 slotProps={{input: {'aria-label': 'A'}}}
                 label="Ні"
             />
-            <p>Чи потрібно вам SEO оптимізація?</p>
+            </div>
+            <p style={{marginBottom: 20, marginTop: 20}}>Чи потрібно вам SEO оптимізація?</p>
+            <div>
             <Radio
                 checked={isNeedSEO}
                 onChange={() => setIsNeedSeo(true)}
@@ -187,7 +194,9 @@ export default function FormPage (){
                 slotProps={{input: {'aria-label': 'A'}}}
                 label="Ні"
             />
-            <p>Чи потрібна вам підримка проєкту?</p>
+            </div>
+            <p style={{marginBottom: 20, marginTop: 20}}>Чи потрібна вам підримка проєкту?</p>
+            <div>
             <Radio
                 checked={isNeedSupport}
                 onChange={() => setIsNeedSupport(true)}
@@ -204,7 +213,9 @@ export default function FormPage (){
                 slotProps={{input: {'aria-label': 'A'}}}
                 label="Ні"
             />
-            <p>Чи потрібен вам дизайн?</p>
+            </div>
+            <p style={{marginBottom: 20, marginTop: 20}}>Чи потрібен вам дизайн?</p>
+            <div>
             <Radio
                 checked={isNeedDesign}
                 onChange={() => setIsNeedDesign(true)}
@@ -221,7 +232,9 @@ export default function FormPage (){
                 slotProps={{input: {'aria-label': 'A'}}}
                 label="Ні"
             />
-            <p>Чи у вас є бренд проєкту?</p>
+            </div>
+            <p style={{marginBottom: 20, marginTop: 20}}>Чи у вас є бренд проєкту?</p>
+            <div>
             <Radio
                 checked={isNeedBrand}
                 onChange={() => setIsNeedBrand(true)}
@@ -238,7 +251,9 @@ export default function FormPage (){
                 slotProps={{input: {'aria-label': 'A'}}}
                 label="Ні"
             />
-            <p>Це комерційний проєкт?</p>
+            </div>
+            <p style={{marginBottom: 20, marginTop: 20}}>Це комерційний проєкт?</p>
+            <div>
             <Radio
                 checked={isCommerceProject}
                 onChange={() => setIsCommerceProject(true)}
@@ -255,7 +270,8 @@ export default function FormPage (){
                 slotProps={{input: {'aria-label': 'A'}}}
                 label="Ні"
             />
-            <p>Якою сферою діяльності ви займаєтесь?</p>
+        </div>
+            <p style={{marginBottom: 20, marginTop: 20}}>Якою сферою діяльності ви займаєтесь?</p>
             <Select
                 {...register('Activity', {required: true})}
                 color="primary"
@@ -270,7 +286,7 @@ export default function FormPage (){
                 <Option value={'Некомерційна організація'}>Некомерційна організація</Option>
                 <Option value={'Інше'}>Інше</Option>
             </Select>
-            <p>Який тип проєкту у вас?</p>
+            <p style={{marginBottom: 20, marginTop: 20}}>Який тип проєкту у вас?</p>
             <Select
                 color="primary"
                 placeholder="Оберіть одне"
@@ -285,7 +301,8 @@ export default function FormPage (){
                 <Option value={"Маркетплейс"}>Маркетплейс</Option>
                 <Option value={"Інше"}>Інше</Option>
             </Select>
-            <p>У вас є приклад сайтів конкурентів?</p>
+            <p style={{marginBottom: 20, marginTop: 20}}>У вас є приклад сайтів конкурентів?</p>
+            <div>
             <Radio
                 checked={isConcurent}
                 onChange={() => setIsConcurent(true)}
@@ -302,16 +319,18 @@ export default function FormPage (){
                 slotProps={{input: {'aria-label': 'A'}}}
                 label="Ні"
             />
+        </div>
             {isConcurent &&
                 <>
-                    <p>Посилання на сайт конкурентів?</p>
+                    <p style={{marginBottom: 20, marginTop: 20}}>Посилання на сайт конкурентів?</p>
                     <Input
                         color="primary"
                         size="lg"
                         variant="outlined"
                         {...register('link')}
                     />
-                    <p>Що вам подобається на сайті?</p>
+                    <p style={{marginBottom: 20, marginTop: 20}}>Що вам подобається на сайті?</p>
+                    <div>
                     <Checkbox
                         color="primary"
                         label="Якість"
@@ -360,7 +379,9 @@ export default function FormPage (){
                         value="Інше"
                         {...register('like')}
                     />
-                    <p>Що вам не подобається на сайті?</p>
+                </div>
+                    <p style={{marginBottom: 20, marginTop: 20}}>Що вам не подобається на сайті?</p>
+                    <div>
                     <Checkbox
                         {...register('dislike')}
                         value='Погана якість'
@@ -401,9 +422,11 @@ export default function FormPage (){
                     size="lg"
                     variant="outlined"
                 />
+                </div>
                 </>
             }
-            <p>Який вік вашої цільової аудиторії?</p>
+            <p style={{marginBottom: 20, marginTop: 20}}>Який вік вашої цільової аудиторії?</p>
+            <div>
             <Checkbox
                 {...register('auditoryInfo')}
                 value="10-13"
@@ -452,7 +475,8 @@ export default function FormPage (){
                 size="lg"
                 variant="outlined"
             />
-            <p>Який тип дизайну ви хочете?</p>
+        </div>
+            <p style={{marginBottom: 20, marginTop: 20}}>Який тип дизайну ви хочете?</p>
             <Select
                 {...register('typeOfDesign', {required: true})}
                 color="primary"
@@ -467,11 +491,11 @@ export default function FormPage (){
                 <Option value={'Ілюстративний'}>Ілюстративний</Option>
                 <Option value={'Інше'}>Інше</Option>
             </Select>
-            <p>Дата початку роботи</p>
+            <p style={{marginBottom: 20, marginTop: 20}}>Дата початку роботи</p>
             <DatePicker  selected={startDate} onChange={(date) => setStartDate(date)}/>
-            <p>Дата кінця роботи</p>
+            <p style={{marginBottom: 20, marginTop: 20}}>Дата кінця роботи</p>
             <DatePicker selected={endDate} onChange={(date) => setEndDate(date)}/>
-            <p>Очікувана сума затрат на проєкт</p>
+            <p style={{marginBottom: 20, marginTop: 20}}>Очікувана сума затрат на проєкт</p>
             <Input
                 {...register('sumOfMoney', {required: true})}
                 color="primary"
@@ -479,7 +503,7 @@ export default function FormPage (){
                 variant="outlined"
                 startDecorator={<AttachMoneyIcon/>}
             />
-            <Button type={"submit"}>Відправити результат</Button>
+            <Button style={{marginBottom: 20, marginTop: 20}} type={"submit"}>Відправити результат</Button>
         </form>
     </main>
 

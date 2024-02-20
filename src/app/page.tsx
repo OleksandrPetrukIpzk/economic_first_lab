@@ -14,7 +14,7 @@ export default function Home() {
     }
   }
   return (
-    <main style={{display: 'flex', flexDirection: 'column', alignContent: 'center', marginTop: 30 }}>
+    <main style={{display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 30 }}>
         <div style={{marginBottom: 20, display: 'flex', flexDirection: 'column'}}>
       <Input
           onChange={(e) => setLogin(e.target.value)}
