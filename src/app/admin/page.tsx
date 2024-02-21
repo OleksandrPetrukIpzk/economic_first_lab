@@ -82,12 +82,12 @@ export default function Admin() {
 
     const sortByName = (value: string) =>{
         if(value === 'Від А-Я'){
-        const filtered = brifs.filter(obj => obj.nameOfCustomer.toLowerCase().localeCompare('а', 'uk', { sensitivity: 'base' }) >= 0 &&
-            obj.nameOfCustomer.toLowerCase().localeCompare('я', 'uk', { sensitivity: 'base' }) <= 0);
+        const filtered = defaultValue.filter(obj => obj.nameOfCustomer.toLowerCase().localeCompare('а', 'ua', { sensitivity: 'base' }) >= 0 &&
+            obj.nameOfCustomer.toLowerCase().localeCompare('я', 'ua', { sensitivity: 'base' }) <= 0);
             setBrifs(filtered);
         } else if(value === 'Від Я-А'){
-            const filtered = brifs.filter(obj => obj.nameOfCustomer.toLowerCase().localeCompare('я', 'uk', { sensitivity: 'base' }) >= 0 &&
-                obj.nameOfCustomer.toLowerCase().localeCompare('а', 'uk', { sensitivity: 'base' }) <= 0);
+            const filtered = defaultValue.filter(obj => obj.nameOfCustomer.toLowerCase().localeCompare('я', 'ua', { sensitivity: 'base' }) >= 0 &&
+                obj.nameOfCustomer.toLowerCase().localeCompare('а', 'ua', { sensitivity: 'base' }) <= 0);
                 setBrifs(filtered);
         } else{
             setBrifs(defaultValue);
