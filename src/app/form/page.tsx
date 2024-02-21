@@ -9,6 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import {SubmitHandler, useForm} from "react-hook-form";
 import axios from "axios";
+import {useRouter} from "next/navigation";
 export type Inputs = {
     nameOfCustomer: string,
     nameOfCompany: string,
@@ -46,6 +47,7 @@ export default function FormPage (){
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const {register, handleSubmit} = useForm<Inputs>();
+    const router = useRouter();
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         const dataFromSchem = {
             nameOfCustomer: data.nameOfCustomer,
@@ -73,6 +75,7 @@ export default function FormPage (){
         }
         const res = await axios.post('http://localhost:3000/api/', dataFromSchem);
         console.log(res)
+        router.push('/')
     }
 
     return<main>

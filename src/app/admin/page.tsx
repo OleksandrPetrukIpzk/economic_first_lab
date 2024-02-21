@@ -3,13 +3,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Inputs } from "@/app/form/page";
 import Link from "next/link";
-import { Button } from "@mui/joy";
+import {Button, Option, Select} from "@mui/joy";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import "@fontsource/roboto";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 export default function Admin() {
     const [brifs, setBrifs] = useState<Inputs[]>([]);
+    const [defaultValue, setDefaultValue] = useState<Inputs[]>([]);
     const [isChange, setIsChange] = useState(false);
 
     useEffect(() => {
@@ -17,6 +18,7 @@ export default function Admin() {
             try {
                 const response = await axios.get('http://localhost:3000/api');
                 setBrifs(response.data.elements);
+                setDefaultValue(response.data.elements);
             } catch (error) {
                 console.log(error);
             }
@@ -77,12 +79,76 @@ export default function Admin() {
                 text
             ]}).download();
     }
+
+    const sortByName = (value: string) =>{
+        if(value === 'Від А-Я'){
+        const filtered = brifs.filter(obj => obj.nameOfCustomer.toLowerCase().localeCompare('а', 'uk', { sensitivity: 'base' }) >= 0 &&
+            obj.nameOfCustomer.toLowerCase().localeCompare('я', 'uk', { sensitivity: 'base' }) <= 0);
+            setBrifs(filtered);
+        } else if(value === 'Від Я-А'){
+            const filtered = brifs.filter(obj => obj.nameOfCustomer.toLowerCase().localeCompare('я', 'uk', { sensitivity: 'base' }) >= 0 &&
+                obj.nameOfCustomer.toLowerCase().localeCompare('а', 'uk', { sensitivity: 'base' }) <= 0);
+                setBrifs(filtered);
+        } else{
+            setBrifs(defaultValue);
+        }
+    }
+    const sortBySum = (value: string) =>{
+        if(value === 'Від мінімальної'){
+            const sortedBrifs = [...brifs].sort((a, b) => Number(a.sumOfMoney) - Number(b.sumOfMoney));
+            setBrifs(sortedBrifs);
+        } else if(value === 'Від максимальної'){
+            const sortedBrifs = [...brifs].sort((a, b) => Number(b.sumOfMoney) - Number(a.sumOfMoney));
+            setBrifs(sortedBrifs);
+        } else{
+            setBrifs(defaultValue);
+        }
+    }
     return (
-        <div>
+        <main>
+            <div style={{display: "flex", gap: 10, justifyContent:'center', alignItems: 'center', marginTop: 40}}>
+                <div style={{}}>
+                    <p>Сортування по імені замовника</p>
+                    <Select
+                        onChange={(e) => sortByName(e.target.innerHTML)}
+                        color="primary"
+                        placeholder="По часові завантаження"
+                        size="sm"
+                        variant="outlined"
+                    >
+                        <Option value="Від А-Я">Від А-Я</Option>
+                        <Option value="Від Я-А">Від Я-А</Option>
+                        <Option value={"По часові завантаження"}>По часові завантаження</Option>
+                    </Select>
+                </div>
+                <div style={{}}>
+                    <p>Сортування по суммі замовлення</p>
+                    <Select
+                        onChange={(e) => sortBySum(e.target.innerHTML)}
+                        color="primary"
+                        placeholder="По часові завантаження"
+                        size="sm"
+                        variant="outlined"
+                    >
+                        <Option value="Від мінімальної">Від мінімальної</Option>
+                        <Option value="Від максимальної">Від максимальної</Option>
+                        <Option value={"По часові завантаження"}>По часові завантаження</Option>
+                    </Select>
+                </div>
+            </div>
             {brifs.map((brif) => {
                 return (
-                    <div key={brif._id} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 20, marginLeft: 30 , marginRight: 30 , marginTop: 30, border: '1px solid green'}}>
-                        <Link href={'admin/'+ brif._id} style={{display: 'flex', flexDirection: 'column', gap: 10}}>
+                    <div key={brif._id} style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        padding: 20,
+                        marginLeft: 30,
+                        marginRight: 30,
+                        marginTop: 30,
+                        border: '1px solid green'
+                    }}>
+                        <Link href={'admin/' + brif._id} style={{display: 'flex', flexDirection: 'column', gap: 10}}>
                             <p>Name: {brif.nameOfCustomer}</p>
                             <p>Date of start: {brif.dayOfStart}</p>
                             <p>Salary: {brif.sumOfMoney}</p>
@@ -107,6 +173,6 @@ export default function Admin() {
                     </div>
                 );
             })}
-        </div>
+        </main>
     );
 }
